@@ -32,4 +32,16 @@ const addLocalTimes = () => {
   });
 };
 
+const observer = new MutationObserver(() => {
+  if (!/https:\/\/github\.com\/.+\/commits\/.+/.test(window.location.href)) {
+    return;
+  }
+  addLocalTimes();
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
+});
+
 addLocalTimes();
